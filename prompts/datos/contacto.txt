@@ -1,0 +1,48 @@
+<reglas>
+- Devuelve un JSON con la estructura indicada en <estructura>. Si un dato no está presente, usa null.
+- El dato ingresos_mensuales debe ser un valor en pesos colombianos (COP), si se da en otra divisa, se debe realizar la conversión del valor a pesos colombianos
+- No debes asumir que el cliente está en Colombia (es nacional) basándote en la ciudad por la que pregunta, el número de celular, ni ningún otro dato personal o inferencia contextual.
+- Solo puedes asumir que el cliente se encuentra o no en Colombia cuando: El cliente lo indica explícitamente, o El cliente responde directamente a una pregunta sobre su ubicación actual o país de residencia.
+</reglas>
+
+<estructura>
+{
+  "es_nacional": null,
+  "email_cliente": null,
+  "celular": null,
+  "ingresos_mensuales": null
+}
+</estructura>
+
+<ejemplos>
+Asistente: ¿Me podrías confirmar si te encuentras en Colombia?
+Usuario: Sí
+RESULTADO:
+{
+  "es_nacional": true,
+  "email_cliente": null,
+  "celular": null,
+  "ingresos_mensuales": null
+}
+
+Asistente: ¿En qué te podríamos ayudar?
+Usuario: Estoy en Chile ...
+RESULTADO:
+{
+  "es_nacional": false,
+  "email_cliente": null,
+  "celular": null,
+  "ingresos_mensuales": null
+}
+
+Asistente: Me podrías indicar tus ingresos mensuales
+Usuario: 4.5millones 
+RESULTADO:
+{
+  "es_nacional": null,
+  "email_cliente": null,
+  "celular": null,
+  "ingresos_mensuales": 4500000
+}
+
+</ejemplos>

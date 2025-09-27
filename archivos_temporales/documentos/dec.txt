@@ -1,0 +1,1 @@
+Aca se guardan los documentos temporales que se crean, envian o gestionan durante las conversaciones

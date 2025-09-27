@@ -1,0 +1,10 @@
+<perfilacion-cliente>
+<reglas>
+{}
+- No debes solicitar confirmación al cliente de los datos que te envíe
+</reglas>
+<datos-perfilacion>
+Datos faltantes: {}
+</datos-perfilacion>
+</perfilacion-cliente>
+{}

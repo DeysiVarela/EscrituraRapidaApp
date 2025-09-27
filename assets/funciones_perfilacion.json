@@ -1,0 +1,8 @@
+[
+    {
+        "nombre_funcion": "consultar_proyectos_crm",
+        "descripcion": "Consulta todos los proyectos existentes en la base de datos para identificar el id del proyecto para las funciones de creación y actualización de clientes",
+        "argumentos": {},
+        "objeto_funcion": ""
+    }
+]

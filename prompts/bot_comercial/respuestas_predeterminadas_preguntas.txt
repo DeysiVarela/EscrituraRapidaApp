@@ -1,0 +1,39 @@
+<preguntas-frecuentes>
+Si el cliente no ha realizado una pregunta como las que se encuentran en esta sección, no se deben tomar estos datos para responder
+
+- ¿Que descuentos/beneficios tienen?
+- ¿Cuentan con descuentos/beneficios?
+- ¿Si compro de contado me hacen algun descuento?
+- ¿si voy a comprar más de un inmueble tengo algún descuentos/beneficios?
+- ¿Si hago abonos anticipados tendría algun descuentos/beneficios?
+- Quiero comprar de manera presencial,¿como hago?
+- ¿Se puede extender el plazo para el pago de la cuota inicial si no puedo cumplir con la fecha límite?
+
+Ejemplo respuesta: Para ampliar la información y poder brindarle una mejor atención, es necesario que nos confirme (solicitar datos de perfilación de acuerdo a la sección <perfilacion-cliente> y escalar la conversación de acuerdo con la sección <escalamiento-conversacion>) 
+
+- Si el cliente pregunta algo similar a ¿Cual es el porcentaje para la cuota inicial?
+Acción: Debes validar si el cliente se encuentra o no en Colombia, de acuerdo a la respuesta del cliente debes responder.
+Ejemplo respuesta:     
+- Para clientes del exterior, el % para la cuota inicial es del 30% sobre el valor del inmueble
+- Para clientes nacionales, el % para la cuota inicial es del 20% sobre el valor del inmueble
+
+- ¿Que documentos/documentación/papeles se necesitan/debo presentar, para iniciar la compra?
+Ejemplo respuesta: 
+Los documentos necesarios para iniciar con el proceso son:
+Si eres empleado: 
+Cédula y los desprendibles de pago de los últimos 3 meses.
+Si eres independiente:
+Cédula  y  soportes de ingreso de los últimos 3 meses.
+
+- ¿Que soportes debo tener para inicial la compra?
+Ejemplo respuesta: "Los documentos necesarios para  iniciar con el proceso son:
+Si eres empleado: 
+Cédula y los desprendibles de pago de los ultimos 3 meses.
+Si eres independiente:
+Cédula  y  soportes de ingreso de los ultimos 3 meses."
+
+- ¿Puedo comprar virtualmente?
+Ejemplo respuesta: Si señ@r. 
+Acción: Escalar la conversación de acuerdo a la sección <escalamiento-conversación>
+
+</preguntas-frecuentes>

@@ -1,0 +1,50 @@
+Catálogos código-valor para la actualización y creación de clientes
+
+<actividad_economica>
+Actividad económica:
+100000000: Ama de casa  
+100000001: Empleado  
+100000002: Estudiante  
+100000003: Independiente  
+100000004: Pensionado  
+100000006: Socio o rentista de capital  
+100000007: Religioso  
+100000008: Servidor público
+</actividad_economica>
+<tiempo_compra>
+Tiempo de compra:
+700320003: Desde 0 a 30 días  
+    - "lo antes posible"
+    - "ya", "inmediatamente", "esta semana", "en unos días"
+    - "este mes", "cuanto antes"
+    - "en menos de un mes"
+    - "estoy listo para comprar"
+700320002: Desde 31 a 60 días  
+    - "en uno o dos meses"
+    - "en un mes y medio"
+    - "para el mes que viene"
+    - "en unas semanas", "pronto pero no inmediato"
+    - "en el corto plazo"
+700320001: Desde 61 a 90 días  
+    - "en tres meses", "en dos o tres meses"
+    - "en el próximo trimestre"
+    - "en un par de meses más"
+    - "a mediano plazo"
+700320000: Más de 91 días
+    - "más adelante", "a largo plazo"
+    - "en unos meses más", "no tengo prisa"
+    - "quizá a fin de año", "cuando termine de ahorrar"
+    - "aún no estoy seguro", "todavía lo estoy pensando"
+</tiempo_compra>
+<tipo_documento_identificacion>
+Tipo de documento
+100000000: NIT  
+100000001: Cédula de ciudadanía  
+100000004: Tarjeta de identidad  
+100000005: NUIP  
+100000006: Cédula de extranjería  
+100000002: Visa  
+100000007: Libreta militar  
+100000008: Pasaporte  
+100000010: Registro civil
+</tipo_documento>

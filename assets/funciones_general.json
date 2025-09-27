@@ -1,0 +1,122 @@
+[
+    {
+        "nombre_funcion": "consultar_proyectos",
+        "descripcion": "cosulta los proyectos de la constructora dadas unas condiciones, siempre la debes usar cuando hablas de proyectos",
+        "argumentos": {
+            "id_ciudad": {
+                "tipo": "string",
+                "descripcion": "El id de la ciudad , e.g. 19, en caso de enviar un 'all' en este parametro se consultaran para todas las ciudades",
+                "es_obligatorio": true
+            },
+            "id_sector": {
+                "tipo": "string",
+                "descripcion": "El id del sector , e.g. 209, en caso de enviar un 'all' en este parametro se consultaran para todos los sectores",
+                "es_obligatorio": true
+            },
+            "id_tipo_vivienda": {
+                "tipo": "string",
+                "descripcion": "El id del tipo de vivienda , e.g. 1, en caso de enviar un 'all' en este parametro se consultaran para todos los tipos de vivienda",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "consultar_macro_proyectos",
+        "descripcion": "cosulta los macroproyectos de la constructora dadas unas condiciones siempre la debes usar cuando hablas de macroproyectos",
+        "argumentos": {
+            "id_ciudad": {
+                "tipo": "string",
+                "descripcion": "El id de la ciudad , e.g. 19, en caso de enviar un 'all' en este parametro se consultaran para todas las ciudades",
+                "es_obligatorio": true
+            },
+            "id_sector": {
+                "tipo": "string",
+                "descripcion": "El id del sector , e.g. 209, en caso de enviar un 'all' en este parametro se consultaran para todos los sectores",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "informacion_sobre_proyecto_por_nombre",
+        "descripcion": "cosulta los proyectos de la constructora dado el nombre del proyecto, devuelve una lista de proyectos que coincidan con el nombre",
+        "argumentos": {
+            "nombre_proyecto": {
+                "tipo": "string",
+                "descripcion": "El nombre del proyecto , e.g. proyecto1",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "informacion_sobre_proyecto",
+        "descripcion": "cosulta la información/imagenes/documentos etc, de un proyecto puntual de la constructora siempre la debes usar cuando hablas de un proyecto en especifico",
+        "argumentos": {
+            "url_proyecto": {
+                "tipo": "string",
+                "descripcion": "The project url , e.g. https://www.constructorabolivar.com/proyecto1",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "disponibilidad_agente",
+        "descripcion": "Valida si el agente se encuentra disponible en este momento para atender la conversación",
+        "argumentos": {
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            },
+            "proyecto_disponible": {
+                "tipo": "integer",
+                "descripcion": "El campo valida si el cliente si encontró el proyecto disponible en Constructora Bolivar, si no se encuentra el proyecto, el valor es 0, de lo contrario, 1",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "consultar_proyectos_crm",
+        "descripcion": "Consulta todos los proyectos existentes en la base de datos para identificar el id del proyecto para las funciones de creación y actualización de clientes",
+        "argumentos": {},
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "consultar_informacion_sala_venta",
+        "descripcion": "Consulta todos los puntos de ventas disponible, se consulta en la aplicacion web de Contructora Bolivar",
+        "argumentos": {},
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "obtener_whatsapp_bogota",
+        "descripcion": "Obtiene el enlace al whatsapp de Constructora Bolivar Bogotá para únicamente compartirles el dato a los clientes interesados en proyectos que no se encuentran en Cali y sus alrededores, si no se sabe la ubicación en la cual el cliente desea obtener un proyecto, no se debe ejecutar",
+        "argumentos": {},
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "crear_log_preguntas_no_atendidas",
+        "descripcion": "Se utiliza para guardar en la base de datos aquellas preguntas que realizó el cliente y no se lograron responder y que generaron que se escalara la conversación",
+        "argumentos": {
+            "asunto": {
+                "tipo": "string",
+                "descripcion": "Una descripción en pocas palabras sobre lo que trata la pregunta",
+                "es_obligatorio": true
+            },
+            "pregunta": {
+                "tipo": "string",
+                "descripcion": "La pregunta que no se logró responder",
+                "es_obligatorio": true
+            },
+            "numero_identificacion": {
+                "tipo": "string",
+                "descripcion": "El número de identificación del cliente",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    }
+]

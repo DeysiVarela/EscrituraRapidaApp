@@ -1,0 +1,378 @@
+[
+    {
+        "nombre_funcion": "consultar_proyectos",
+        "descripcion": "cosulta los proyectos de la constructora dadas unas condiciones, siempre la debes usar cuando hablas de proyectos",
+        "argumentos": {
+            "id_ciudad": {
+                "tipo": "string",
+                "descripcion": "El id de la ciudad , e.g. 19, en caso de enviar un 'all' en este parametro se consultaran para todas las ciudades",
+                "es_obligatorio": true
+            },
+            "id_sector": {
+                "tipo": "string",
+                "descripcion": "El id del sector , e.g. 209, en caso de enviar un 'all' en este parametro se consultaran para todos los sectores",
+                "es_obligatorio": true
+            },
+            "id_tipo_vivienda": {
+                "tipo": "string",
+                "descripcion": "El id del tipo de vivienda , e.g. 1, en caso de enviar un 'all' en este parametro se consultaran para todos los tipos de vivienda",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "consultar_macro_proyectos",
+        "descripcion": "cosulta los macroproyectos de la constructora dadas unas condiciones siempre la debes usar cuando hablas de macroproyectos",
+        "argumentos": {
+            "id_ciudad": {
+                "tipo": "string",
+                "descripcion": "El id de la ciudad , e.g. 19, en caso de enviar un 'all' en este parametro se consultaran para todas las ciudades",
+                "es_obligatorio": true
+            },
+            "id_sector": {
+                "tipo": "string",
+                "descripcion": "El id del sector , e.g. 209, en caso de enviar un 'all' en este parametro se consultaran para todos los sectores",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "informacion_sobre_proyecto_por_nombre",
+        "descripcion": "cosulta los proyectos de la constructora dado el nombre del proyecto, devuelve una lista de proyectos que coincidan con el nombre",
+        "argumentos": {
+            "nombre_proyecto": {
+                "tipo": "string",
+                "descripcion": "El nombre del proyecto , e.g. proyecto1",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "informacion_sobre_proyecto",
+        "descripcion": "cosulta la información/imagenes/documentos etc, de un proyecto puntual de la constructora siempre la debes usar cuando hablas de un proyecto en especifico",
+        "argumentos": {
+            "url_proyecto": {
+                "tipo": "string",
+                "descripcion": "The project url , e.g. https://www.constructorabolivar.com/proyecto1",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "informacion_sobre_temas_de_interes",
+        "descripcion": "consulta en la web información sobre temas de interés verificados y pertinentes, e.g. normas, entidades bancarias,etc.",
+        "argumentos": {
+            "pregunta_simplificada": {
+                "tipo": "string",
+                "descripcion": "Es la pregunta que el usuario quiere hacer en su minima expresion, e.g. ¿Qué es una vivienda VIS?",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "buscar_clientes_por_numero_identificacion",
+        "descripcion": "Consulta si el cliente existe en la base de datos de la constructora dado el numero de identificación del cliente",
+        "argumentos": {
+            "numero_identificacion": {
+                "tipo": "string",
+                "descripcion": "El numero de identificación del cliente",
+                "es_obligatorio": true
+            },
+            "id_conversacion": {
+                "tipo": "string",
+                "descripcion": "El id de la conversación",
+                "es_obligatorio": true
+            },
+            "medio_digital": {
+                "tipo": "string",
+                "descripcion": "el canal por el cual se contactó el cliente. e.g. facebook, whatsapp. este dato no se le pregunta al cliente. si no se tiene el dato, el valor es chatweb",
+                "es_obligatorio": true
+            },
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "actualizar_territorio",
+        "descripcion": "Actualiza el territorio del cliente en la base de datos. Solo se debe llamar si el cliente te responde si se encuentra o no en Colombia. Nunca debes asumir dónde se encuentra el cliente.",
+        "argumentos": {
+            "esta_en_colombia": {
+                "tipo": "integer",
+                "descripcion": "Si el cliente se encuentra en Colombia, el valor es 1, de lo contrario, 0",
+                "es_obligatorio": true
+            },
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "guardado_temporal_datos_nuevo_lead",
+        "descripcion": "Se utiliza para guardar los datos de nuevos leads antes de ser creados en la base de datos",
+        "argumentos": {
+            "nombre": {
+                "tipo": "string",
+                "descripcion": "nombre del cliente",
+                "es_obligatorio": false
+            },
+            "apellido": {
+                "tipo": "string",
+                "descripcion": "apellido del cliente",
+                "es_obligatorio": false
+            },
+            "email": {
+                "tipo": "string",
+                "descripcion": "correo electrónico del cliente",
+                "es_obligatorio": false
+            },
+            "numero_identificacion": {
+                "tipo": "string",
+                "descripcion": "número de identificación del cliente. e.g. 1100123123",
+                "es_obligatorio": false
+            },
+            "medio_digital": {
+                "tipo": "string",
+                "descripcion": "el canal por el cual se contactó el cliente. e.g. facebook, whatsapp. este dato no se le pregunta al cliente.",
+                "es_obligatorio": true
+            },
+            "id_conversacion": {
+                "tipo": "string",
+                "descripcion": "El id de la conversación",
+                "es_obligatorio": true
+            },
+            "celular": {
+                "tipo": "string",
+                "descripcion": "celular del cliente. e.g. +573227854492",
+                "es_obligatorio": false
+            },
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "actualizar_datos_nuevo_lead",
+        "descripcion": "Se utiliza para actualizar la información de un nuevo lead en la base de datos",
+        "argumentos": {
+            "id": {
+                "tipo": "string",
+                "descripcion": "El id del lead en la base de datos",
+                "es_obligatorio": true
+            },
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            },
+            "tipo_documento": {
+                "tipo": "string",
+                "descripcion": "Código del tipo de documento de identificación del cliente.",
+                "es_obligatorio": false
+            },
+            "numero_identificacion": {
+                "tipo": "string",
+                "descripcion": "número de identificación del cliente. e.g. 1100123123",
+                "es_obligatorio": false
+            },
+            "celular": {
+                "tipo": "string",
+                "descripcion": "el número de celular del cliente, si no se tiene el dato, pasar vacío",
+                "es_obligatorio": false
+            },
+            "email": {
+                "tipo": "string",
+                "descripcion": "correo electrónico del cliente",
+                "es_obligatorio": false
+            },
+            "ingresos_mensuales": {
+                "tipo": "string",
+                "descripcion": "Los ingresos mensuales del cliente en pesos colombianos, sin puntos, sin comas, sin signos de moneda. si no se tiene el dato, pasar el dato como una cadena vacía. e.g. 3000000",
+                "es_obligatorio": false
+            },
+            "actividad_economica": {
+                "tipo": "string",
+                "descripcion": "Código actividad económica del cliente",
+                "es_obligatorio": false
+            },
+            "proyecto_interes": {
+                "tipo": "string",
+                "descripcion": "id del proyecto de interés del cliente en la base de datos.si no se tiene el dato, pasar el dato como una cadena vacía. No es el nombre del proyecto. es un guid, el formato estándar: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "es_obligatorio": false
+            },
+            "tiempo_compra": {
+                "tipo": "string",
+                "descripcion": "Código de la cantidad promedio de días en los cuales el cliente va a querer realizar el proceso de compra. si no se tiene el dato, pasar el dato como una cadena vacía.",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "actualizar_datos_lead",
+        "descripcion": "Se utiliza para actualizar la información de un lead en la base de datos",
+        "argumentos": {
+            "id": {
+                "tipo": "string",
+                "descripcion": "El id del lead en la base de datos",
+                "es_obligatorio": true
+            },
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            },
+            "email": {
+                "tipo": "string",
+                "descripcion": "correo electrónico del cliente",
+                "es_obligatorio": false
+            },
+            "ingresos_mensuales": {
+                "tipo": "string",
+                "descripcion": "Los ingresos mensuales del cliente en pesos colombianos, sin puntos, sin comas, sin signos de moneda. si no se tiene el dato, pasar el dato como una cadena vacía. e.g. 3000000",
+                "es_obligatorio": false
+            },
+            "actividad_economica": {
+                "tipo": "string",
+                "descripcion": "Código de la actividad económica del cliente. Usa uno de los siguientes: 100000000 (Ama de casa), 100000001 (Empleado), 100000002 (Estudiante), 100000003 (Independiente), 100000004 (Pensionado), 100000006 (Socio o rentista de capital), 100000007 (Religioso), 100000008 (Servidor público).",
+                "es_obligatorio": false
+            },
+            "proyecto_interes": {
+                "tipo": "string",
+                "descripcion": "id del proyecto de interés del cliente en la base de datos.si no se tiene el dato, pasar el dato como una cadena vacía. No es el nombre del proyecto. es un guid, el formato estándar: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "es_obligatorio": false
+            },
+            "tiempo_compra": {
+                "tipo": "string",
+                "descripcion": "Código de la cantidad promedio de días en los cuales el cliente va a querer realizar el proceso de compra. si no se tiene el dato, pasar el dato como una cadena vacía.",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "disponibilidad_agente",
+        "descripcion": "Valida si el agente se encuentra disponible en este momento para atender la conversación",
+        "argumentos": {
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            },
+            "proyecto_disponible": {
+                "tipo": "integer",
+                "descripcion": "El campo valida si el cliente si encontró el proyecto disponible en Constructora Bolivar, si no se encuentra el proyecto, el valor es 0, de lo contrario, 1",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "consultar_proyectos_crm",
+        "descripcion": "Consulta todos los proyectos existentes en la base de datos para identificar el id del proyecto para las funciones de creación y actualización de clientes",
+        "argumentos": {},
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "consultar_informacion_sala_venta",
+        "descripcion": "Consulta todos los puntos de ventas disponible, se consulta en la aplicacion web de Contructora Bolivar",
+        "argumentos": {},
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "actualizar_datos_contacto",
+        "descripcion": "Se utiliza para actualizar la información de un contacto en la base de datos",
+        "argumentos": {
+            "id": {
+                "tipo": "string",
+                "descripcion": "El id del contacto en la base de datos",
+                "es_obligatorio": true
+            },
+            "id_usuario_direct_line": {
+                "tipo": "string",
+                "descripcion": "id del usuario en directline, lo encuentras como id_usuario_direct_line en los datos que tienes",
+                "es_obligatorio": true
+            },
+            "email": {
+                "tipo": "string",
+                "descripcion": "correo electrónico del cliente",
+                "es_obligatorio": false
+            },
+            "ingresos_mensuales": {
+                "tipo": "string",
+                "descripcion": "Los ingresos mensuales del cliente en pesos colombianos, sin puntos, sin comas, sin signos de moneda. si no se tiene el dato, pasar el dato como una cadena vacía. e.g. 3000000",
+                "es_obligatorio": false
+            },
+            "celular": {
+                "tipo": "string",
+                "descripcion": "el número de celular del cliente, si no se tiene el dato, pasar vacío",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "obtener_whatsapp_bogota",
+        "descripcion": "Obtiene el enlace al whatsapp de Constructora Bolivar Bogotá para únicamente compartirles el dato a los clientes interesados en proyectos que no se encuentran en Cali y sus alrededores, si no se sabe la ubicación en la cual el cliente desea obtener un proyecto, no se debe ejecutar",
+        "argumentos": {},
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "actualizar_datos_para_contactar",
+        "descripcion": "Se utiliza para actualizar la información de un cliente en la base de datos para que sea contactado en otro momento",
+        "argumentos": {
+            "tipo_cliente": {
+                "tipo": "integer",
+                "descripcion": "El tipo de cliente, si es un lead es 0, si es un contacto es 1",
+                "es_obligatorio": true
+            },
+            "id_cliente": {
+                "tipo": "string",
+                "descripcion": "id del cliente que se encuentra en la base de datos, no es el número de identificación",
+                "es_obligatorio": true
+            },
+            "fecha_a_contactar": {
+                "tipo": "string",
+                "descripcion": "Fecha y hora en la cual nos debemos contactar con el cliente, se debe tener en cuenta a qué horas desea ser contactado, debe ser mayor a la fecha y hora actual y encontrarse en horario hábil, se debe expresar en UTC y tener en cuenta el país en el cual se encuentra el cliente",
+                "es_obligatorio": true
+            }
+        },
+        "objeto_funcion": ""
+    },
+    {
+        "nombre_funcion": "crear_log_preguntas_no_atendidas",
+        "descripcion": "Se utiliza para guardar en la base de datos aquellas preguntas que realizó el cliente y no se lograron responder y que generaron que se escalara la conversación",
+        "argumentos": {
+            "asunto": {
+                "tipo": "string",
+                "descripcion": "Una descripción en pocas palabras sobre lo que trata la pregunta",
+                "es_obligatorio": true
+            },
+            "pregunta": {
+                "tipo": "string",
+                "descripcion": "La pregunta que no se logró responder",
+                "es_obligatorio": true
+            },
+            "numero_identificacion": {
+                "tipo": "string",
+                "descripcion": "El número de identificación del cliente",
+                "es_obligatorio": false
+            }
+        },
+        "objeto_funcion": ""
+    }
+]

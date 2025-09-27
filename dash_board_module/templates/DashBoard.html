@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+    <link rel="shortcut icon" href="{{ url_for('dash_board.static', filename='Logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('dash_board.static', filename='EstiloFileExplorer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('dash_board.dynamic_styles') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body class="body-page">
+    <div id="content-container">
+        <div id="parte-superior">
+            <div class="d-flex gap-2 mb-3 justify-content-center align-items-center">
+                <img src="{{ url_for('dash_board.static', filename='Logo.png') }}" alt="Logo" width="50" height="50">
+                <h1 class="title-DashBoard">{{ Entorno }} {{ nombreProyecto }} DashBoard</h1>
+            </div>
+            <nav aria-label="breadcrumb" class="ruta-actual">
+                <ol class="breadcrumb" id="display-page-location">
+                </ol>
+            </nav>
+            <div style="display: none;">
+                <p id="current-path" style="font-family: tahoma; font-size: 200%;"></p>
+            </div>
+            <div id="lista-botones" class="d-flex gap-2" style="font-size: 100%; margin-bottom: 10px; overflow-x: auto;">
+                <button type="button" class="explorer-button" id="BotonVolver" title="Volver">
+                    <i class="material-icons">arrow_back</i>
+                </button>
+                <button type="button" class="explorer-button" id="BotonRecargar" title="Recargar">
+                    <i class="material-icons">refresh</i>
+                </button>
+                <button type="button" class="explorer-button" id="BotonHome" title="Inicio">
+                    <i class="material-icons">home</i>
+                </button>
+            </div>
+        </div>
+        <div id="parte-inferior">
+            <div style="overflow-x: auto; min-width: min-content;">
+                <table id="file-list" class="table-hover table-sm" style="margin: 0 auto;"></table>
+            </div>
+            <div id="audio-container" style="display: none;">
+                <audio id="audio-player" controls style="width: 100%;"></audio>
+            </div>
+            <div id="file-content-container">
+                <div id="logs-content-container">
+                </div>
+                <iframe id="file-content" style="width: 100%; height: 100vh; border: none; display: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        data = {
+            "Entorno": "Desarrollo"
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const fileList = document.getElementById('file-list');
+            const basePath = '/';
+            let currentPath = document.getElementById('current-path');
+            const BotonVolver = document.getElementById('BotonVolver');
+            const BotonRecargar = document.getElementById('BotonRecargar');
+            const BotonHome = document.getElementById('BotonHome');
+            const listaBotones = document.getElementById('lista-botones');
+            const contentContainer = document.getElementById('file-content');
+            const audioContainer = document.getElementById('audio-container');
+            const audioPlayer = document.getElementById('audio-player');
+            const logsContentContainer = document.getElementById('logs-content-container');
+            let path = basePath;
+
+            // Agrega una opción para retroceder
+            BotonVolver.addEventListener('click', function () {
+                const temporalPath = currentPath.textContent.split('/').filter(Boolean);
+                const newPath = temporalPath.slice(0, -1);
+                if (temporalPath == newPath)
+                    newPath.slice(0, -1);
+                let folderPath = "/" + newPath.join('/') + "/";
+                folderPath = folderPath.replace(/\/\//g, '/');
+                if (folderPath === '') {
+                    loadFileList(basePath);
+                } else {
+                    loadFileList(folderPath);
+                }
+            });
+            BotonRecargar.addEventListener('click', function () {
+                if (!currentPath.textContent.endsWith('/')) {
+                    let filePath = currentPath.textContent.split('/').slice(0, -1).join('/') + "/";
+                    let filename = currentPath.textContent.split('/').slice(-1)[0];
+                    loadFileContent(filePath, filename);
+                }
+                else {
+                    loadFileList(currentPath.textContent || basePath);
+                }
+            });
+
+            BotonHome.addEventListener('click', function () {
+                loadFileList(basePath);
+            });
+
+            
+
+            let Atajos = JSON.parse({{ Atajos|tojson|safe }}.replace(/'/g, '"').replace("False","false").replace("True","true"));
+
+            Atajos.forEach(atajo => {
+                let boton = document.createElement('button');
+                boton.type = 'button';
+                boton.className = 'explorer-button';
+                boton.title = atajo.titulo;
+                boton.innerHTML = `<i class="material-icons">${atajo.icono}</i>`;
+                boton.addEventListener('click', function() {
+                    if (atajo.esArchivo) {
+                        loadFileContent(atajo.ruta.split('/').slice(0, -1).join('/'), atajo.ruta.split('/').pop());
+                    } else {
+                        loadFileList(atajo.ruta);
+                    }
+                });
+
+                listaBotones.appendChild(boton);
+            });
+
+            // Función para cargar la lista de archivos y carpetas
+            function loadFileList(path) {
+                // Limpia la lista actual
+                const parteInferior = document.getElementById('parte-inferior');
+                parteInferior.scrollTop = 0;
+                const displayPageLocation = document.getElementById('display-page-location');
+                fileList.innerHTML = '';
+                contentContainer.src = "";
+                contentContainer.style.display = 'none';
+                audioContainer.style.display = 'none'; // Oculta el contenedor de audio
+                audioPlayer.src = "";
+                audioPlayer.pause();
+                logsContentContainer.innerHTML = '';
+                currentPath.textContent = path.replace(/\/\//g, '/');
+                renderconstBreadcrumb(path.replace(/\/\//g, '/'))
+
+
+
+
+                // Solicita la lista de archivos y carpetas al servidor
+                fetch(`/dashboard/list?path=${encodeURIComponent(path)}&token=${encodeURIComponent('{{Token}}')}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let Archivos = [];
+                        let Carpetas = [];
+                        for (let elemento of data) {
+                            if (elemento.Name.endsWith('/')) {
+                                Carpetas.push(elemento);
+                            }
+                            else {
+                                Archivos.push(elemento);
+                            }
+                        }
+                        data = Carpetas.concat(Archivos);
+
+                        let stringTabla = "<thead><tr><th class='file-stats'> </th><th class='file-stats'>Nombre</th><th class='file-stats'>Fecha de modificacion</th><th class='file-stats'>Tamaño</th><th> </th></tr></thead>";
+                        indice = 1;
+                        let FolderHtml = '<i class="material-icons" style="color: #FFD700; vertical-align: middle;">folder</i> '
+                        let FileHtml = '<i class="material-icons" style="color: #000000; vertical-align: middle;">text_snippet</i> '
+                        let AudioHtml = '<i class="material-icons" style="color: #800080; vertical-align: middle;">audio_file</i> '
+                        let PdfHtml = '<i class="material-icons" style="color: #FF0000; vertical-align: middle;">picture_as_pdf</i> '
+                        let WordHtml = '<i class="material-icons" style="color: #1E90FF; vertical-align: middle;">docs</i> '
+                        let JsonHtml = '<i class="material-icons" style="color: #FFA500; vertical-align: middle;">data_object</i> '
+                        let CsvHtml = '<i class="material-icons" style="color: #009200; vertical-align: middle;">storage</i> '
+
+                        for (let elemento of data) {
+                            elemento.Index = indice;
+                            indice++;
+                            let fila = "<tr>";
+
+                            // Crear enlace y agregar al DOM
+                            const link = document.createElement('a');
+                            link.classList.add('file-link');
+                            link.textContent = elemento.Name;
+
+                            if (elemento.Name.endsWith('/')) {
+                                link.innerHTML = FolderHtml + elemento.Name;
+                            } else {
+                                // Agrega el indicador de tipo de archivo según la extensión
+                                if (elemento.Name.endsWith('.m4a') || elemento.Name.endsWith('.mp3')) {
+                                    link.innerHTML = AudioHtml + elemento.Name;
+
+                                } else if (elemento.Name.endsWith('.pdf')) {
+                                    link.innerHTML = PdfHtml + elemento.Name;
+
+
+                                } else if (elemento.Name.endsWith('.docx')) {
+                                    link.innerHTML = WordHtml + elemento.Name;
+
+
+                                } else if (elemento.Name.endsWith('.json')) {
+                                    link.innerHTML = JsonHtml + elemento.Name;
+
+                                } else if (elemento.Name.endsWith('.csv')) {
+                                    link.innerHTML = CsvHtml + elemento.Name;
+
+                                }
+                                else {
+                                    link.innerHTML = FileHtml + elemento.Name;
+
+                                }
+                            }
+                            fila += "<td class='text-right'>";
+                            fila += elemento.Index;
+                            fila += "</td>";
+                            fila += "<td>";
+                            fila += link.outerHTML;
+                            fila += "</td>";
+                            fila += "<td class='file-stats'>";
+                            fila += elemento.Time;
+                            fila += "</td>";
+                            fila += "<td class='text-center file-stats'>";
+                            fila += elemento.Size;
+                            fila += "</td>";
+                            fila += '<td class="text-center">';
+                            fila += '<button type="button" class="delete-explorer-button">';
+                            fila += '<i class="material-icons">delete</i>';
+                            fila += '</button>';
+                            fila += "</td>";
+                            fila += "</tr>";
+
+                            stringTabla += fila;
+                        }
+
+                        // Agrega el contenido de la tabla al DOM después de construirlo
+                        // ... Código anterior ...
+
+                        document.getElementById("file-list").innerHTML = stringTabla;
+
+                        // Elimina la fila de retroceso si existe
+
+
+
+                        // Agrega eventos de clic después de construir la tabla
+                        const rows = fileList.getElementsByTagName('tr');
+                        //Ultimo elemento de la tabla
+                        for (let i = 1; i < rows.length; i++) {
+                            let newPath;
+                            if (data[i - 1].Name.endsWith('/')) {
+                                rows[i].childNodes[1].addEventListener('click', function () {
+                                    const newPath = path === basePath ? `/${data[i - 1].Name}` : `${path}/${data[i - 1].Name}`;
+                                    loadFileList(newPath);
+                                });
+                            } else if (data[i - 1].Name.endsWith('.m4a') || data[i - 1].Name.endsWith('.mp3')) {
+                                rows[i].childNodes[1].addEventListener('click', function () {
+                                    loadAudioContent(path, data[i - 1].Name);
+                                });
+                            } else {
+                                rows[i].childNodes[1].addEventListener('click', function () {
+                                    loadFileContent(path, data[i - 1].Name);
+                                });
+                            }
+                            rows[i].childNodes[rows[i].cells.length - 1].addEventListener('click', function () {
+                                // Mostrar ventana de confirmación
+                                const confirmation = window.confirm("¿Seguro que deseas eliminar este archivo?");
+
+                                // Si el usuario confirma, proceder con la eliminación
+                                if (confirmation) {
+                                    const newPath = path === basePath ? `${data[i - 1].Name}` : `${path}/${data[i - 1].Name}`;
+
+                                    fetch(`/dashboard/delete?path=${encodeURIComponent(newPath)}&token=${encodeURIComponent('{{Token}}')}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            loadFileList(path);
+                                        })
+                                        .catch(error => console.error('Error fetching file list:', error));
+                                }
+                            });
+
+
+
+                        }
+                    })
+                    .catch(error => console.error('Error fetching file list:', error));
+            }
+
+            function loadFileContent(path, filename) {
+                if (filename.includes('Logs')) {
+                    loadLogsContent(path, filename);
+                    return;
+                }
+                fetch(`/dashboard/content?path=${encodeURIComponent(path)}&file=${encodeURIComponent(filename)}&token=${encodeURIComponent('{{Token}}')}`)
+                    .then(response => response.blob())  // Usamos blob para manejar diferentes tipos de archivos
+                    .then(blob => {
+                        // limpia la tabla de archivos
+                        fileList.innerHTML = '';
+                        //cambia la ruta actual
+                        const contentContainer = document.getElementById('file-content');
+
+                        // Crear un objeto URL para el blob
+                        const blobUrl = URL.createObjectURL(blob);
+                        const newPath = path === basePath ? `/${filename}` : `${path}/${filename}`;
+                        const currentPath = document.getElementById('current-path');
+                        currentPath.textContent = newPath.replace(/\/\//g, '/');
+                        renderconstBreadcrumb(newPath.replace(/\/\//g, '/'))
+
+                        // Cambiar la fuente del iframe para mostrar el contenido
+                        contentContainer.src = blobUrl;
+                        contentContainer.style.display = 'block';
+                        const parteInferior = document.getElementById('parte-inferior');
+                        parteInferior.scrollTop = 0;
+                    })
+                    .catch(error => console.error('Error fetching file content:', error));
+            }
+
+            function loadLogsContent(path, filename) {
+                fetch(`/dashboard/content?path=${encodeURIComponent(path)}&file=${encodeURIComponent(filename)}&token=${encodeURIComponent('{{Token}}')}`)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        fileList.innerHTML = '';
+                        const reader = new FileReader();
+                        reader.onload = function (event) {
+                            const logs = event.target.result;
+                            renderLogs(logs);
+                        };
+                        reader.readAsText(blob);
+                        const newPath = path === basePath ? `/${filename}` : `${path}/${filename}`;
+                        const currentPath = document.getElementById('current-path');
+                        currentPath.textContent = newPath.replace(/\/\//g, '/');
+                        renderconstBreadcrumb(newPath.replace(/\/\//g, '/'))
+
+
+                    })
+                    .catch(error => console.error('Error fetching logs content:', error));
+            }
+
+            function renderLogs(logs) {
+                const container = document.getElementById('logs-content-container');
+                container.innerHTML = ''; // Limpiar el contenido previo
+                const logsArray = logs.split(/\n(?=\[INFO:])/); // Dividir los logs por cada entrada de [INFO:]
+
+                logsArray.forEach(logEntry => {
+                    const logElements = logEntry.split('\n').filter(line => line.trim() !== ''); // Dividir cada entrada por línea y eliminar líneas vacías
+
+                    const logInfo = logElements.find(line => line.startsWith('[INFO:]'));
+                    const logHeaders = logElements.find(line => line.startsWith('[HEADERS:]'));
+                    const logAnswer = logElements.find(line => line.startsWith('[ANSWER:]'));
+                    const logJson = logElements.find(line => line.startsWith('[JSON:]'));
+
+                    const logItem = document.createElement('div');
+                    logItem.classList.add('log-item');
+
+                    const infoElement = document.createElement('div');
+                    infoElement.classList.add('log-info');
+                    infoElement.textContent = logInfo ? logInfo : '[INFO:] None';
+                    logItem.appendChild(infoElement);
+
+                    const headersElement = document.createElement('div');
+                    headersElement.classList.add('log-headers');
+                    if (logHeaders) {
+                        const headersArray = logHeaders.replace('[HEADERS:] ', '').split(';');
+                        headersArray.forEach(header => {
+                            const headerSpan = document.createElement('span');
+                            headerSpan.classList.add('header-item');
+                            headerSpan.textContent = header.trim();
+                            headersElement.appendChild(headerSpan);
+                        });
+                    } else {
+                        headersElement.textContent = '[HEADERS:] None';
+                    }
+                    logItem.appendChild(headersElement);
+
+                    const answerElement = document.createElement('div');
+                    answerElement.classList.add('log-answer');
+                    if (logAnswer) {
+                        const answerContent = logAnswer.replace('[ANSWER:] ', '').replace(" True", " true").replace(" False", " false");
+                        try {
+                            const answerJson = JSON.parse(answerContent);
+                            answerElement.textContent = '[ANSWER:] \n' + JSON.stringify(answerJson, null, 2);
+                        } catch (e) {
+                            try {
+                                const answerJson = JSON.parse(answerContent.replace(/'/g, '"').replace(/([a-zA-Z])"([a-zA-Z])/g, '$1\'$2'));
+                                answerElement.textContent = '[ANSWER:] \n' + JSON.stringify(answerJson, null, 2);
+                            } catch (e) {
+                                console.error('Error parsing JSON:', e);
+                                answerElement.textContent = logAnswer;
+                            }
+                        }
+                    } else {
+                        answerElement.textContent = '[ANSWER:] None';
+                    }
+                    logItem.appendChild(answerElement);
+
+                    const jsonElement = document.createElement('div');
+                    jsonElement.classList.add('log-json');
+                    if (logJson) {
+                        const jsonContent = logJson.replace('[JSON:] ', '').replace(" True", " true").replace(" False", " false");
+                        try {
+                            const jsonParsed = JSON.parse(jsonContent);
+                            jsonElement.textContent = '[JSON:] \n' + JSON.stringify(jsonParsed, null, 2);
+                        } catch (e) {
+                            try {
+                                const jsonParsed = JSON.parse(jsonContent.replace(/'/g, '"').replace(/([a-zA-Z])"([a-zA-Z])/g, '$1\'$2'));
+                                jsonElement.textContent = '[JSON:] \n' + JSON.stringify(jsonParsed, null, 2);
+                            } catch (e) {
+                                console.error('Error parsing JSON:', e);
+                                jsonElement.textContent = logJson;
+                            }
+                        }
+                    } else {
+                        jsonElement.textContent = '[JSON:] None';
+                    }
+                    logItem.appendChild(jsonElement);
+
+                    container.appendChild(logItem);
+                });
+            }
+
+            function loadAudioContent(path, filename) {
+                fetch(`/dashboard/content?path=${encodeURIComponent(path)}&file=${encodeURIComponent(filename)}&token=${encodeURIComponent('{{Token}}')}`)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const audioContainer = document.getElementById('audio-container');
+                        const audioPlayer = document.getElementById('audio-player');
+
+                        const blobUrl = URL.createObjectURL(blob);
+                        const newPath = path === basePath ? `/${filename}` : `${path}/${filename}`;
+                        const currentPath = document.getElementById('current-path');
+
+                        currentPath.textContent = newPath.replace(/\/\//g, '/');
+                        renderconstBreadcrumb(newPath.replace(/\/\//g, '/'));
+
+
+                        audioPlayer.src = blobUrl;
+                        audioContainer.style.display = 'block';
+                        audioPlayer.play();
+                    })
+                    .catch(error => console.error('Error fetching audio content:', error));
+            }
+            function renderconstBreadcrumb(ruta) {
+                const displayPageLocation = document.getElementById('display-page-location');
+                displayPageLocation.innerHTML = '<li class="breadcrumb-item"><a>Inicio</a></li>';
+
+                // Dividir la ruta actual por '/' y filtrar elementos vacíos
+                const pathElements = ruta.split('/').filter(Boolean);
+
+                // Iterar por cada elemento para crear los <li> correspondientes
+                pathElements.forEach((elem, index) => {
+                    const breadcrumbItem = document.createElement('li');
+                    breadcrumbItem.classList.add('breadcrumb-item');
+
+                    // Si es el último elemento, agregar clases de activo y aria-current
+                    if (index === pathElements.length - 1) {
+                        breadcrumbItem.classList.add('ruta-actual-activa');
+                        breadcrumbItem.setAttribute('aria-current', 'page');
+                        breadcrumbItem.textContent = elem;
+                    } else {
+                        const breadcrumbLink = document.createElement('a');
+                        breadcrumbLink.textContent = elem;
+                        breadcrumbItem.appendChild(breadcrumbLink);
+                    }
+
+                    displayPageLocation.appendChild(breadcrumbItem);
+                });
+
+            }
+
+            // Carga la lista de archivos y carpetas en el arranque
+            loadFileList(basePath);
+        });
+    </script>
+</body>
+
+</html>
