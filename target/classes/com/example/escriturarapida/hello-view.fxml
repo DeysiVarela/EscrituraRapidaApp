@@ -13,28 +13,26 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
-        <Label fx:id="titleLabel" text="Typing Speed" styleClass="title"/>
-        <HBox alignment="CENTER_RIGHT" spacing="12.0" HBox.hgrow="ALWAYS" styleClass="infoBox">
-            <Label text="Time:" />
-            <Label fx:id="timeLabel" text="60" styleClass="timeValue" />
-            <Label text="sec" />
-            <Label text="Score:" />
-            <Label fx:id="scoreLabel" text="0" styleClass="scoreValue" />
-        </HBox>
-    </HBox>
+    <!-- Centered title -->
+    <Label fx:id="titleLabel" text="Typing Speed" styleClass="title" />
+
+    <!-- Prominent remaining time below the title -->
+    <Label fx:id="timeLabel" text="60s" styleClass="timer" />
+
+    <!-- Score display (controller expects fx:id=scoreLabel) -->
+    <Label fx:id="scoreLabel" text="Score: 0" styleClass="scoreValue" />
 
     <Label fx:id="wordLabel" text="Press Start" styleClass="wordCard"/>
 
     <HBox spacing="8.0" alignment="CENTER">
         <TextField fx:id="inputField" promptText="Type the word" HBox.hgrow="ALWAYS"/>
-        <Button text="Submit" onAction="#onSubmitClicked" styleClass="btnPrimary"/>
+        <Button text="✅ Submit" onAction="#onSubmitClicked" styleClass="btnPrimary"/>
     </HBox>
 
     <HBox spacing="10.0" alignment="CENTER">
-        <Button text="Start" onAction="#onStartClicked" styleClass="btnAccent"/>
-        <Button text="Restart" onAction="#onStartClicked" styleClass="btnSecondary"/>
-        <Button text="History" onAction="#onShowHistoryClicked" styleClass="btnSecondary" accessibleText="Show game history"/>
+        <Button text="⏱ Start" onAction="#onStartClicked" styleClass="btnAccent"/>
+        <Button text="🔄 Restart" onAction="#onStartClicked" styleClass="btnSecondary"/>
+        <Button text="📜 History" onAction="#onShowHistoryClicked" styleClass="btnSecondary" accessibleText="Show game history"/>
     </HBox>
 
     <Label fx:id="statusLabel" text="" styleClass="status"/>

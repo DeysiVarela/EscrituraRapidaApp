@@ -6,9 +6,18 @@
 }
 
 .title {
-    -fx-font-size: 20px;
+    -fx-font-size: 34px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0b3b66;
+    -fx-alignment: center;
+    -fx-padding: 6 0 4 0;
+}
+
+.timer {
+    -fx-font-size: 22px;
     -fx-font-weight: 700;
-    -fx-text-fill: #1f2937;
+    -fx-text-fill: #ef4444;
+    -fx-padding: 2 0 12 0;
 }
 
 .infoBox {
@@ -40,12 +49,14 @@
     -fx-background-color: linear-gradient(#4f46e5, #6366f1);
     -fx-text-fill: white;
     -fx-font-weight: 600;
+    -fx-padding: 8 14 8 14;
 }
 
 .btnAccent {
     -fx-background-color: linear-gradient(#06b6d4, #0891b2);
     -fx-text-fill: white;
     -fx-font-weight: 600;
+    -fx-padding: 8 14 8 14;
 }
 
 .btnSecondary {
