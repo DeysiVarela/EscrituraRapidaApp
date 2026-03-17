@@ -1,0 +1,73 @@
+/* Basic app styling for Escritura Rápida */
+.root {
+    -fx-background-color: linear-gradient(#f7f9fc, #e9f0fb);
+    -fx-padding: 20;
+    -fx-font-family: "Segoe UI", Roboto, Arial;
+}
+
+.title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1f2937;
+}
+
+.infoBox {
+    -fx-alignment: center-right;
+    -fx-spacing: 8px;
+}
+
+.timeValue, .scoreValue {
+    -fx-font-weight: 600;
+    -fx-text-fill: #0b3b66;
+    -fx-padding: 0 6 0 6;
+    -fx-background-color: #e6f0ff;
+    -fx-background-radius: 4px;
+}
+
+.wordCard {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0b3b66;
+    -fx-border-color: #c6ddff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-padding: 18 24 18 24;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(11,59,102,0.12), 8, 0, 0, 2);
+}
+
+.btnPrimary {
+    -fx-background-color: linear-gradient(#4f46e5, #6366f1);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
+.btnAccent {
+    -fx-background-color: linear-gradient(#06b6d4, #0891b2);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
+.btnSecondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #9ca3af;
+    -fx-text-fill: #374151;
+}
+
+.status {
+    -fx-text-fill: #065f46;
+    -fx-font-weight: 600;
+    -fx-padding: 6 0 0 0;
+}
+
+/* List styling for history dialog */
+ListView {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 6;
+}
+
+/* Focus outlines for accessibility */
+.btnPrimary:focused, .btnAccent:focused, .btnSecondary:focused, TextField:focused {
+    -fx-effect: dropshadow(three-pass-box, rgba(99,102,241,0.35), 6, 0, 0, 2);
+}
