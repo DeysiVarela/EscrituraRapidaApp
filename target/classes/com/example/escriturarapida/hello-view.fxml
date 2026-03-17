@@ -7,34 +7,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <VBox alignment="CENTER" spacing="12.0" xmlns:fx="http://javafx.com/fxml"
-    fx:controller="com.example.escriturarapida.HelloController"
+    fx:controller="com.example.typingspeed.HelloController"
     stylesheets="@styles.css" styleClass="root">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
     <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
-        <Label fx:id="titleLabel" text="Escritura Rápida" styleClass="title"/>
+        <Label fx:id="titleLabel" text="Typing Speed" styleClass="title"/>
         <HBox alignment="CENTER_RIGHT" spacing="12.0" HBox.hgrow="ALWAYS" styleClass="infoBox">
-            <Label text="Tiempo:" />
+            <Label text="Time:" />
             <Label fx:id="timeLabel" text="60" styleClass="timeValue" />
-            <Label text="seg" />
-            <Label text="Puntaje:" />
+            <Label text="sec" />
+            <Label text="Score:" />
             <Label fx:id="scoreLabel" text="0" styleClass="scoreValue" />
         </HBox>
     </HBox>
 
-    <Label fx:id="wordLabel" text="Presiona Start" styleClass="wordCard"/>
+    <Label fx:id="wordLabel" text="Press Start" styleClass="wordCard"/>
 
     <HBox spacing="8.0" alignment="CENTER">
-        <TextField fx:id="inputField" promptText="Escribe la palabra" HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="inputField" promptText="Type the word" HBox.hgrow="ALWAYS"/>
         <Button text="Submit" onAction="#onSubmitClicked" styleClass="btnPrimary"/>
     </HBox>
 
     <HBox spacing="10.0" alignment="CENTER">
         <Button text="Start" onAction="#onStartClicked" styleClass="btnAccent"/>
-        <Button text="Reiniciar" onAction="#onStartClicked" styleClass="btnSecondary"/>
-        <Button text="Historial" onAction="#onShowHistoryClicked" styleClass="btnSecondary" accessibleText="Mostrar historial de partidas"/>
+        <Button text="Restart" onAction="#onStartClicked" styleClass="btnSecondary"/>
+        <Button text="History" onAction="#onShowHistoryClicked" styleClass="btnSecondary" accessibleText="Show game history"/>
     </HBox>
 
     <Label fx:id="statusLabel" text="" styleClass="status"/>

@@ -1,6 +1,8 @@
-com\example\escriturarapida\HelloController$1.class
-com\example\escriturarapida\HelloController.class
+com\example\typingspeed\HelloController$1.class
+com\example\typingspeed\Launcher.class
+com\example\typingspeed\ResultsController.class
+com\example\typingspeed\TypingSpeedApp.class
 module-info.class
-com\example\escriturarapida\ResultsController.class
-com\example\escriturarapida\EscrituraRapidaApp.class
-com\example\escriturarapida\Launcher.class
+com\example\typingspeed\GameResult.class
+com\example\typingspeed\PersistenceService.class
+com\example\typingspeed\HelloController.class

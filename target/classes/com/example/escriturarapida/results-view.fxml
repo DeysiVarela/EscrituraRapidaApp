@@ -5,11 +5,11 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 <VBox spacing="10.0" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.escriturarapida.ResultsController" stylesheets="@styles.css">
+    fx:controller="com.example.typingspeed.ResultsController" stylesheets="@styles.css">
     <padding>
         <Insets top="12" right="12" bottom="12" left="12"/>
     </padding>
-    <Label text="Historial de partidas" styleClass="title"/>
+    <Label text="Game history" styleClass="title"/>
     <ListView fx:id="resultsList" prefHeight="240.0" prefWidth="420.0"/>
-    <Button text="Cerrar" onAction="#onCloseClicked" styleClass="btnPrimary"/>
+    <Button text="Close" onAction="#onCloseClicked" styleClass="btnPrimary"/>
 </VBox>

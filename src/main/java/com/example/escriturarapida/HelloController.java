@@ -1,4 +1,4 @@
-package com.example.escriturarapida;
+package com.example.typingspeed;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -38,23 +38,31 @@ public class HelloController {
     private String currentWord = "";
     private FadeTransition ft;
 
+    /** Initialize controller: wire events and accessibility. */
     @FXML
     public void initialize() {
         inputField.setOnAction(e -> onSubmitClicked());
-        // accessibility hints
-        inputField.setAccessibleText("Campo de entrada para escribir la palabra");
-        statusLabel.setAccessibleText("Estado del juego");
+        // keyboard shortcut: Ctrl+R to restart
+        inputField.getScene();
+        // accessibility hints (in English)
+        inputField.setAccessibleText("Input field to type the shown word");
+        statusLabel.setAccessibleText("Game status");
+        // mouse hover for wordLabel
+        wordLabel.setOnMouseEntered(e -> wordLabel.setStyle("-fx-opacity:0.9; -fx-cursor:hand;"));
+        wordLabel.setOnMouseExited(e -> wordLabel.setStyle("-fx-opacity:1.0;"));
     }
 
+    /** Start or restart the game. */
     @FXML
     protected void onStartClicked() {
         resetGame();
         startTimer();
         nextWord();
-        statusLabel.setText("Juego iniciado");
+        statusLabel.setText("Game started");
         inputField.requestFocus();
     }
 
+    /** Submit the current input and update score. */
     @FXML
     protected void onSubmitClicked() {
         String text = inputField.getText().trim();
@@ -62,9 +70,9 @@ public class HelloController {
         if (text.equalsIgnoreCase(currentWord)) {
             score++;
             scoreLabel.setText(String.valueOf(score));
-            statusLabel.setText("Correcto!");
+            statusLabel.setText("Correct!");
         } else {
-            statusLabel.setText("Incorrecto. Era: " + currentWord);
+            statusLabel.setText("Wrong. Was: " + currentWord);
         }
         inputField.clear();
         nextWord();
@@ -98,8 +106,9 @@ public class HelloController {
 
     private void endGame() {
         inputField.setDisable(true);
-        statusLabel.setText("Tiempo! Puntaje: " + score);
-        saveResult();
+        statusLabel.setText("Time! Score: " + score);
+        // use persistence service
+        PersistenceService.getInstance().save(new GameResult(Instant.now(), score));
     }
 
     @FXML
@@ -109,11 +118,11 @@ public class HelloController {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Historial de partidas");
+            stage.setTitle("Game history");
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException e) {
-            statusLabel.setText("No se pudo abrir historial");
+            statusLabel.setText("Could not open history");
         }
     }
 
@@ -127,14 +136,9 @@ public class HelloController {
         statusLabel.setText("");
     }
 
+    @Deprecated
     private void saveResult() {
-        try {
-            Path out = Path.of("results.json");
-            String line = String.format("{\"time\":\"%s\",\"score\":%d}%n", Instant.now().toString(), score);
-            Files.writeString(out, line, java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
-            statusLabel.setText(statusLabel.getText() + " (guardado)");
-        } catch (IOException e) {
-            statusLabel.setText(statusLabel.getText() + " (error al guardar)");
-        }
+        // kept for compatibility but now uses PersistenceService
+        PersistenceService.getInstance().save(new GameResult(Instant.now(), score));
     }
 }

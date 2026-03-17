@@ -1,29 +1,21 @@
-package com.example.escriturarapida;
+package com.example.typingspeed;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * Controller for the results/history dialog.
+ */
 public class ResultsController {
     @FXML private ListView<String> resultsList;
 
     @FXML
     public void initialize() {
-        try {
-            Path p = Path.of("results.json");
-            if (Files.exists(p)) {
-                List<String> lines = Files.readAllLines(p).stream().collect(Collectors.toList());
-                resultsList.getItems().addAll(lines);
-            }
-        } catch (IOException e) {
-            resultsList.getItems().add("No se pudo leer results.json");
-        }
+        List<String> lines = PersistenceService.getInstance().readAll();
+        resultsList.getItems().addAll(lines);
     }
 
     @FXML
