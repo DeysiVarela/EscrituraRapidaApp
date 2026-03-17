@@ -25,7 +25,7 @@ import java.util.TimerTask;
 
 public class HelloController {
     @FXML private Label timeLabel;
-    @FXML private Label scoreLabel;
+    @FXML private Label totalLabel;
     @FXML private Label wordLabel;
     @FXML private TextField inputField;
     @FXML private Label statusLabel;
@@ -37,6 +37,7 @@ public class HelloController {
     private Random rnd = new Random();
     private String currentWord = "";
     private FadeTransition ft;
+    private int total = 0;
 
     /** Initialize controller: wire events and accessibility. */
     @FXML
@@ -50,6 +51,9 @@ public class HelloController {
         // mouse hover for wordLabel
         wordLabel.setOnMouseEntered(e -> wordLabel.setStyle("-fx-opacity:0.9; -fx-cursor:hand;"));
         wordLabel.setOnMouseExited(e -> wordLabel.setStyle("-fx-opacity:1.0;"));
+        // session total starts at zero (do not load previous sessions)
+        total = 0;
+        if (totalLabel != null) totalLabel.setText("Total: 0 🏆");
     }
 
     /** Start or restart the game. */
@@ -69,7 +73,8 @@ public class HelloController {
         if (text.isEmpty() || currentWord.isEmpty()) return;
         if (text.equalsIgnoreCase(currentWord)) {
             score++;
-            scoreLabel.setText(String.valueOf(score));
+            total++;
+            if (totalLabel != null) totalLabel.setText("Total: " + total + " 🏆");
             statusLabel.setText("Correct!");
         } else {
             statusLabel.setText("Wrong. Was: " + currentWord);
@@ -130,7 +135,7 @@ public class HelloController {
         if (timer != null) timer.cancel();
         timeLeft = 60;
         score = 0;
-        scoreLabel.setText("0");
+        // session score reset; total remains displayed in `totalLabel`
         timeLabel.setText(String.valueOf(timeLeft));
         inputField.setDisable(false);
         statusLabel.setText("");

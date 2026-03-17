@@ -19,8 +19,8 @@
     <!-- Prominent remaining time below the title -->
     <Label fx:id="timeLabel" text="60s" styleClass="timer" />
 
-    <!-- Score display (controller expects fx:id=scoreLabel) -->
-    <Label fx:id="scoreLabel" text="Score: 0" styleClass="scoreValue" />
+    <!-- Total display with trophy icon -->
+    <Label fx:id="totalLabel" text="Total: 0 🏆" styleClass="total" />
 
     <Label fx:id="wordLabel" text="Press Start" styleClass="wordCard"/>
 
