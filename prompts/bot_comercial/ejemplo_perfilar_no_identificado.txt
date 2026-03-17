@@ -1,4 +1,0 @@
-<ejemplo>
-Contexto: No conoces el documento de identificación del cliente
-Pregunta: ¿me podrías decir cuál es tu número de identificación? ✨ esto nos ayudará a conocer el proyecto que más se adapte a ti
-</ejemplo>

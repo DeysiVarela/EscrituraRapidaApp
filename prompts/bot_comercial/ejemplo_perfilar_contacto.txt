@@ -1,4 +1,0 @@
-<ejemplo>
-Contexto: No se conocen los datos ingresos_mensuales y correo electrónico, el cliente te preguntó por proyectos disponibles
-Pregunta: ¿me podrías decir cuál es tu ingreso mensual? ✨ esto nos ayudará a conocer el proyecto que más se adapte a ti
-</ejemplo>
