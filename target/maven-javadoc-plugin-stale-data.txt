@@ -1,0 +1,47 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+@argfile
+--no-fonts
+--class-path
+'C:/Users/Deysi/.m2/repository/org/openjfx/javafx-graphics/21.0.6/javafx-graphics-21.0.6.jar;C:/Users/Deysi/.m2/repository/org/openjfx/javafx-base/21.0.6/javafx-base-21.0.6.jar;C:/Users/Deysi/.m2/repository/org/openjfx/javafx-controls/21.0.6/javafx-controls-21.0.6.jar'
+--module-path
+'C:/Users/Deysi/.m2/repository/org/openjfx/javafx-graphics/21.0.6/javafx-graphics-21.0.6-win.jar;C:/Users/Deysi/.m2/repository/org/openjfx/javafx-fxml/21.0.6/javafx-fxml-21.0.6-win.jar;C:/Users/Deysi/.m2/repository/org/openjfx/javafx-controls/21.0.6/javafx-controls-21.0.6-win.jar;C:/Users/Deysi/.m2/repository/org/openjfx/javafx-base/21.0.6/javafx-base-21.0.6-win.jar;C:/Users/Deysi/Documents/UNIVALLE/TER/SEMESTRE 3/Programacion orientada a eventos/HelloWorld2.java/EscrituraRapida/target/classes'
+--patch-module
+com.example.typingspeed='C:/Users/Deysi/Documents/UNIVALLE/TER/SEMESTRE 3/Programacion orientada a eventos/HelloWorld2.java/EscrituraRapida/src/main/java'
+-encoding
+'UTF-8'
+-protected
+--module-source-path
+'C:/Users/Deysi/Documents/UNIVALLE/TER/SEMESTRE 3/Programacion orientada a eventos/HelloWorld2.java/EscrituraRapida/target/reports/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Deysi/Documents/UNIVALLE/TER/SEMESTRE 3/Programacion orientada a eventos/HelloWorld2.java/EscrituraRapida/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'EscrituraRapida 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'EscrituraRapida 1.0-SNAPSHOT API'
+com.example.typingspeed
+'C:/Users/Deysi/Documents/UNIVALLE/TER/SEMESTRE 3/Programacion orientada a eventos/HelloWorld2.java/EscrituraRapida/src/main/java/module-info.java'
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\allclasses-index.html = 1773799508985
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\allpackages-index.html = 1773799508991
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\element-list = 1773799508859
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\help-doc.html = 1773799509044
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\index-all.html = 1773799509029
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\index.html = 1773799509038
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\member-search-index.js = 1773799509007
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\module-search-index.js = 1773799508996
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\overview-tree.html = 1773799508958
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\package-search-index.js = 1773799508999
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\search.html = 1773799509035
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\tag-search-index.js = 1773799509010
+C:\Users\Deysi\Documents\UNIVALLE\TER\SEMESTRE 3\Programacion orientada a eventos\HelloWorld2.java\EscrituraRapida\target\reports\apidocs\type-search-index.js = 1773799509003
